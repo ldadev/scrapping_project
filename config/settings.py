@@ -1,3 +1,4 @@
+#base.py
 
 import os
 from pathlib import Path
@@ -53,20 +54,26 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 #Configuración en producción
-DEBUG = True
-ALLOWED_HOSTS = ["*"]
+DEBUG =  os.environ.get('DJANGO_DEBUG', default='False')
+ALLOWED_HOSTS = ['ldadev.pythonanywhere.com']
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME':'db.sqlite3',
-        'OPTIONS': {'timeout': 10,
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'ldadev.mysql.pythonanywhere-services.com',
+        'USER': 'ldadev',
+        'PASSWORD': 'NedVoght<10',
+        'NAME': 'ldadev$default',
+        'CHARSET': 'utf8',
+    },
 }
-}
-STATIC_ROOT = None
 
 
 STATIC_URL = 'static/'
+STATIC_ROOT = '/home/ldadev/config/static'
+
+
+
 LANGUAGE_CODE = 'es-es'
 
 TIME_ZONE = 'UTC'
@@ -76,4 +83,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
